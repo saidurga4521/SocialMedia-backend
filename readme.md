@@ -23,3 +23,19 @@
         - In the hook, bcrypt generates a salt (genSalt) and hashes the password, replacing the plain text password with the hashed one.
 
         - Exports the User model created from the schema for use in other parts of the application.
+
+##### b.creating user router
+
+        - Defines the /signup route: When a POST request hits /signup, it calls the signup function from user.controller.js.
+
+        - Exports an Express router: This file is a modular route handler and must be connected in your main index.js or app.js using app.use("/user", userRouter).
+
+##### c.creating user controller
+
+        - Extracts user data (name, email, password) from the request body.
+
+        - Inserts a new user into the database using User.insertOne(...).
+
+        - Generates a JWT token with user info (email, name, id) and signs it using the secret key.
+
+        - Sends response with the new user and token, along with a success message.
