@@ -49,3 +49,14 @@
         - Generates JWT token with user's email, name, and _id if the credentials are valid.
 
         - Sends back user info and token if login is successful, otherwise sends an error message
+
+#### 4.isAuthorised middleware
+
+        - The authMiddleware is mainly used to check whether the user is authorized before allowing access to any protected page or API. If the user has a valid token (JWT), they are allowed; otherwise, access is denied
+        - Checks for token in the request header (Authorization) to verify if the user is logged in.
+
+        - Extracts and verifies the JWT token using your secret key to get the user's info.
+
+        - Attaches user info (id, email) to req.user for use in the next middleware or route.
+
+        - Blocks access if token is missing, invalid, or the user doesn't exist in the database.

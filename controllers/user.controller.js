@@ -37,6 +37,7 @@ module.exports.signup = async (req, res) => {
 //login
 const bcrypt = require("bcrypt");
 module.exports.login = async (req, res) => {
+  console.log("the req", req?.user);
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
@@ -70,6 +71,24 @@ module.exports.login = async (req, res) => {
     console.log("the error", error);
     res.send({
       message: error.message,
+    });
+  }
+};
+
+module.exports.loggedInUserInfo = async (req, res) => {
+  try {
+    const user = await User.findById(req?.user?.id);
+    res.status(200).send({
+      data: {
+        user,
+      },
+      success: true,
+      message: "USER Details fetched successfully !!",
+    });
+  } catch (error) {
+    console.log("error", error.message);
+    res.send({
+      data: error.message,
     });
   }
 };
