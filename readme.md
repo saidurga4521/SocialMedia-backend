@@ -12,7 +12,7 @@
 
      - mongoose.connection is used to monitor the connection; db.on("error") logs if there's an error, and db.once("open") confirms a successful connection.
 
-#### 2. Authentication
+#### 2. SignUp
 
 ##### a.creating user model:
 
@@ -39,3 +39,13 @@
         - Generates a JWT token with user info (email, name, id) and signs it using the secret key.
 
         - Sends response with the new user and token, along with a success message.
+
+#### 3. Login
+
+        -  Finds user by email using User.findOne({ email }).
+
+        - Checks password match with bcrypt.compare() to validate login.
+
+        - Generates JWT token with user's email, name, and _id if the credentials are valid.
+
+        - Sends back user info and token if login is successful, otherwise sends an error message

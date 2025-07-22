@@ -29,9 +29,47 @@ module.exports.signup = async (req, res) => {
       message: "User Registered Successfully",
     });
   } catch (error) {
-    console.log("the error", error);
     res.send({
       data: error.message,
+    });
+  }
+};
+//login
+const bcrypt = require("bcrypt");
+module.exports.login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+    const isMatch = await bcrypt.compare(password, user.password ?? "");
+    console.log("isMatch", isMatch);
+    if (!user || !isMatch) {
+      return res.send({
+        data: null,
+        success: false,
+        message: "Email/password do not match ",
+      });
+    }
+    const token = jwt.sign(
+      {
+        email: user.email,
+        name: user.name,
+        id: user._id,
+      },
+      process.env.JWT_SECRET_KEY,
+      { expiresIn: "7d" }
+    );
+    res.send({
+      data: {
+        user,
+        token,
+      },
+      success: true,
+      message: "user LoggedIn successfully",
+    });
+  } catch (error) {
+    console.log("the error", error);
+    res.send({
+      message: error.message,
     });
   }
 };
