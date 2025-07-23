@@ -125,3 +125,27 @@ module.exports.deletePost = async (req, res) => {
     sendResponse(res, false, error?.message, null);
   }
 };
+
+module.exports.getPostById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      return sendResponse(res, false, "Post Id is a required", null);
+    }
+    const post = await Post.findById(id);
+    if (!post) {
+      return sendResponse(res, false, "No Post not found", null);
+    }
+    if (post.user.toString() !== req.user.id) {
+      return sendResponse(
+        res,
+        false,
+        "User is not authorized to view this post",
+        null
+      );
+    }
+    sendResponse(res, true, "Post Fetched Successfully!", post);
+  } catch (error) {
+    sendResponse(res, false, error?.message, null);
+  }
+};

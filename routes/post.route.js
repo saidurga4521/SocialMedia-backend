@@ -10,6 +10,7 @@ const {
   createPost,
   editPost,
   deletePost,
+  getPostById,
 } = require("../controllers/post.controller");
 
 router.post("/upload/disk", upload.single("image"), uploadToDiskStorage);
@@ -29,4 +30,5 @@ router.post(
 router.post("/create", isAuthorised, createPost);
 router.post("/edit/:id", isAuthorised, editPost);
 router.post("/delete/post/:id", isAuthorised, deletePost);
+router.get("/view/:id", isAuthorised, getPostById);
 module.exports = router;

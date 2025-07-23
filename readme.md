@@ -153,7 +153,7 @@
 
 #### 15.delete the post by Id
 
-        - 🔍 Find Post by ID: It finds the post using the id from the URL (req.params.id).
+        - Find Post by ID: It finds the post using the id from the URL (req.params.id).
 
         - Handle Not Found: If the post doesn’t exist, it returns a “Post not found” response.
 
@@ -162,3 +162,15 @@
         - Delete Image from Cloudinary: Uses the imageId to remove the image from Cloudinary storage.
 
         - Delete from DB and Respond: Deletes the post from the database and sends a success message.
+
+#### 16.getPostById
+
+        -  Get Post ID: It takes the post ID from the URL (req.params.id).
+
+        - Check for ID: If no ID is provided, it returns an error saying “Post Id is required”.
+
+        - Find Post in DB: It searches for the post in the database using the given ID.
+
+        - User Check: Ensures the logged-in user is the owner of the post.
+
+        - Send Post: If everything is valid, it sends the post data with a success message.
