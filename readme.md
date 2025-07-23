@@ -120,3 +120,21 @@
         - Promise.all() runs all uploads in parallel and waits until all of them finish.
 
         - The response sends back an array of image URLs and imageIds for each uploaded file.
+
+#### 12. create utils/sendResponse
+
+        - It takes res, success, message, data, and an optional statusCode (default is 200).
+
+        - res.status(statusCode).send(...) sets the response status and sends the JSON data.
+
+        -  Helps avoid repeating response structure in every controller — makes your code cleaner.
+
+#### 13. create Post
+
+        - Extracts post data (text, image, imageId) from req.body and user id from req.user.
+
+        - Creates a new Post object using the extracted data and links it to the logged-in user.
+
+        - Saves the new post to the database using await newPost.save().
+
+        - Sends a response with a success message and the saved post, or sends an error message if something fails.

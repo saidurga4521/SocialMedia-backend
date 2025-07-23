@@ -1,4 +1,9 @@
+//upload the post
 const cloudinary = require("../config/cloudinary");
+
+//post management
+const sendResponse = require("../utils/response");
+const Post = require("../models/post.model");
 module.exports.uploadToDiskStorage = async (req, res) => {
   res.status(200).send({
     file: req.file,
@@ -41,5 +46,22 @@ module.exports.multipleUploadToCloudinary = async (req, res) => {
     res.status(200).send({ data: finalResults });
   } catch (error) {
     res.status(500).send({ message: error.message });
+  }
+};
+
+// creating post
+module.exports.createPost = async (req, res) => {
+  try {
+    const { text, image, imageId } = req.body;
+    const newPost = new Post({
+      text,
+      image,
+      imageId,
+      user: req.user.id,
+    });
+    const savedPost = await newPost.save();
+    sendResponse(res, true, "post create successfully", savedPost);
+  } catch (error) {
+    sendResponse(res, false, error.message, null, 500);
   }
 };

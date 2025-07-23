@@ -1,11 +1,13 @@
 const express = require("express");
 const upload = require("../config/multer");
 const router = express.Router();
+const isAuthorised = require("../middlewares/isAuthorised");
 const {
   uploadToDiskStorage,
   multipleUploadToDiskStorage,
   uploadToCloudinary,
   multipleUploadToCloudinary,
+  createPost,
 } = require("../controllers/post.controller");
 
 router.post("/upload/disk", upload.single("image"), uploadToDiskStorage);
@@ -22,4 +24,5 @@ router.post(
   upload.array("images"),
   multipleUploadToCloudinary
 );
+router.post("/create", isAuthorised, createPost);
 module.exports = router;
