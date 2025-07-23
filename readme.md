@@ -60,3 +60,39 @@
         - Attaches user info (id, email) to req.user for use in the next middleware or route.
 
         - Blocks access if token is missing, invalid, or the user doesn't exist in the database.
+
+#### 5.creating the post model
+
+        - Post Schema stores user posts, including text (caption), image, and optional gallery images.
+
+        - user field links the post to the creator using ObjectId referencing the User model.
+
+        - text is required, so each post must have a caption.
+
+        - likes is an array of users (ObjectId) who liked the post, and likesCount tracks the total number of likes.
+        - ImageId is used for whenever you want delete the image,it should remove from both database and external storage for that reason we need this ImageId
+
+#### 6.multer setup
+
+        -  Stores files in /uploads folder using diskStorage configuration.
+
+        - Renames files using the current timestamp plus original file name to avoid name clashes.
+
+        - Only allows image files, checked using the mimetype.
+
+        - Limits file size to 2MB, ensuring no large files are uploaded.
+
+        -❌ "/uploads" refers to the root of your computer, which can cause errors because it likely doesn’t exist or isn’t accessible.
+
+        - ✅ path.join(__dirname, "/uploads") ensures files are saved inside your project folder, making it reliable and safe for all environments.
+
+#### 7.Automatic folder setup
+
+        - It checks if the uploads folder exists in the current directory using fs.existsSync.
+
+        - If the folder doesn't exist, it creates it automatically using fs.mkdirSync with recursive: true to ensure parent folders are created if needed.
+
+#### 8.Add multiple images to disk storage
+
+        - Similar to uploading the single image.
+        - But here we use upload.array(images)
