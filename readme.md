@@ -138,3 +138,15 @@
         - Saves the new post to the database using await newPost.save().
 
         - Sends a response with a success message and the saved post, or sends an error message if something fails.
+
+#### 14.edit the post
+
+        - ✅ Find the Post: It uses the id from the URL (req.params.id) to find the post in the database.
+
+        - Authorization Check: It checks whether the logged-in user is the owner of the post before allowing edits.
+
+        - Edit Fields: If text, image, or imageId are sent in the request, it updates only those fields.
+
+        - Validation: If no text is provided or if the post doesn't exist, it sends an appropriate error message.
+
+        - Save and Respond: After editing, it saves the post and sends a success response with the updated data.

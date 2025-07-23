@@ -65,3 +65,39 @@ module.exports.createPost = async (req, res) => {
     sendResponse(res, false, error.message, null, 500);
   }
 };
+
+module.exports.editPost = async (req, res) => {
+  try {
+    const { text, image, imageId } = req.body;
+    const { id } = req.params;
+    if (!text) {
+      return sendResponse(res, false, "caption is required", null);
+    }
+    const foundPost = await Post.findById(id);
+    if (!foundPost) {
+      return sendResponse(res, false, "Post not found", null);
+    }
+    //now check whether the post is releated to logged in user or not
+    if (foundPost.user.toString() !== req.user.id) {
+      return sendResponse(
+        res,
+        false,
+        "User is not authorized to modify this post",
+        null
+      );
+    }
+    if (text) {
+      foundPost.text = text;
+    }
+    if (image) {
+      foundPost.image = image;
+    }
+    if (imageId) {
+      foundPost.imageId = imageId;
+    }
+    const savedPost = await foundPost.save();
+    sendResponse(res, true, "Post Edited Successfully!", savedPost);
+  } catch (error) {
+    sendResponse(res, false, error?.message, null);
+  }
+};
