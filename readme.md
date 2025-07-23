@@ -96,3 +96,17 @@
 
         - Similar to uploading the single image.
         - But here we use upload.array(images)
+
+#### 9.Cloudinary Configuration
+
+        - It configures Cloudinary using environment variables (.env) for security, so your API credentials aren't hardcoded.
+
+        - It exports the configured cloudinary instance, so you can use it anywhere in your app to upload or manage images.
+
+#### 10.Upload Image file to cloudinary
+
+        -  It uploads the file to Cloudinary using the file path provided by multer.
+
+        - After uploading, it extracts the image URL and public ID from Cloudinary's response.
+
+        - It sends back a JSON response with image and imageId so you can use them later (e.g., for displaying or deleting the image).

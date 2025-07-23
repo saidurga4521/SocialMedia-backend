@@ -4,6 +4,7 @@ const router = express.Router();
 const {
   uploadToDiskStorage,
   multipleUploadToDiskStorage,
+  uploadToCloudinary,
 } = require("../controllers/post.controller");
 
 router.post("/upload/disk", upload.single("image"), uploadToDiskStorage);
@@ -12,5 +13,8 @@ router.post(
   upload.array("images"),
   multipleUploadToDiskStorage
 );
+
+//cloudinary uploads
+router.post("/upload", upload.single("image"), uploadToCloudinary);
 
 module.exports = router;
