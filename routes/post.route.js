@@ -5,6 +5,7 @@ const {
   uploadToDiskStorage,
   multipleUploadToDiskStorage,
   uploadToCloudinary,
+  multipleUploadToCloudinary,
 } = require("../controllers/post.controller");
 
 router.post("/upload/disk", upload.single("image"), uploadToDiskStorage);
@@ -16,5 +17,9 @@ router.post(
 
 //cloudinary uploads
 router.post("/upload", upload.single("image"), uploadToCloudinary);
-
+router.post(
+  "/upload/multiple",
+  upload.array("images"),
+  multipleUploadToCloudinary
+);
 module.exports = router;

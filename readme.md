@@ -110,3 +110,13 @@
         - After uploading, it extracts the image URL and public ID from Cloudinary's response.
 
         - It sends back a JSON response with image and imageId so you can use them later (e.g., for displaying or deleting the image).
+
+#### 11.Uplaoding Multiple Images to cloudinary
+
+        -  req.files contains all the uploaded images received through multer.array().
+
+        - Each image file is uploaded to Cloudinary using cloudinary.uploader.upload(file.path).
+
+        - Promise.all() runs all uploads in parallel and waits until all of them finish.
+
+        - The response sends back an array of image URLs and imageIds for each uploaded file.

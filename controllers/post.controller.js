@@ -27,3 +27,19 @@ module.exports.uploadToCloudinary = async (req, res) => {
     });
   }
 };
+
+module.exports.multipleUploadToCloudinary = async (req, res) => {
+  try {
+    const uploadPromises = req.files.map((file) =>
+      cloudinary.uploader.upload(file.path)
+    );
+    const results = await Promise.all(uploadPromises);
+    const finalResults = results.map(({ secure_url, public_id }) => ({
+      image: secure_url,
+      imageId: public_id,
+    }));
+    res.status(200).send({ data: finalResults });
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
