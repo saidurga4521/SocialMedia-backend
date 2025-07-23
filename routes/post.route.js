@@ -9,6 +9,7 @@ const {
   multipleUploadToCloudinary,
   createPost,
   editPost,
+  deletePost,
 } = require("../controllers/post.controller");
 
 router.post("/upload/disk", upload.single("image"), uploadToDiskStorage);
@@ -27,4 +28,5 @@ router.post(
 );
 router.post("/create", isAuthorised, createPost);
 router.post("/edit/:id", isAuthorised, editPost);
+router.post("/delete/post/:id", isAuthorised, deletePost);
 module.exports = router;

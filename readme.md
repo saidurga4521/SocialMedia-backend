@@ -150,3 +150,15 @@
         - Validation: If no text is provided or if the post doesn't exist, it sends an appropriate error message.
 
         - Save and Respond: After editing, it saves the post and sends a success response with the updated data.
+
+#### 15.delete the post by Id
+
+        - 🔍 Find Post by ID: It finds the post using the id from the URL (req.params.id).
+
+        - Handle Not Found: If the post doesn’t exist, it returns a “Post not found” response.
+
+        - User Authorization: Checks if the logged-in user is the owner of the post before deleting.
+
+        - Delete Image from Cloudinary: Uses the imageId to remove the image from Cloudinary storage.
+
+        - Delete from DB and Respond: Deletes the post from the database and sends a success message.

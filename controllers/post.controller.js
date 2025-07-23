@@ -101,3 +101,27 @@ module.exports.editPost = async (req, res) => {
     sendResponse(res, false, error?.message, null);
   }
 };
+
+module.exports.deletePost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const post = await Post.findById(id);
+    if (!post) {
+      return sendResponse(res, false, "No Post not found", null);
+    }
+    if (post.user.toString() !== req.user.id) {
+      return sendResponse(
+        res,
+        false,
+        "User is not authorized to modify this post",
+        null
+      );
+    }
+    //delete the image form cloudinary
+    await cloudinary.uploader.destroy(post.imageId);
+    await Post.deleteOne({ _id: id });
+    sendResponse(res, true, "Post Deleted Successfully!", null);
+  } catch (error) {
+    sendResponse(res, false, error?.message, null);
+  }
+};
