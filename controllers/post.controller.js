@@ -4,6 +4,8 @@ const cloudinary = require("../config/cloudinary");
 //post management
 const sendResponse = require("../utils/response");
 const Post = require("../models/post.model");
+//for stats
+const Comment = require("../models/comment.model");
 module.exports.uploadToDiskStorage = async (req, res) => {
   res.status(200).send({
     file: req.file,
@@ -96,6 +98,7 @@ module.exports.editPost = async (req, res) => {
       foundPost.imageId = imageId;
     }
     const savedPost = await foundPost.save();
+
     sendResponse(res, true, "Post Edited Successfully!", savedPost);
   } catch (error) {
     sendResponse(res, false, error?.message, null);
@@ -104,8 +107,8 @@ module.exports.editPost = async (req, res) => {
 
 module.exports.deletePost = async (req, res) => {
   try {
-    const { id } = req.params;
-    const post = await Post.findById(id);
+    const { postId } = req.params;
+    const post = await Post.findById(postId);
     if (!post) {
       return sendResponse(res, false, "No Post not found", null);
     }
@@ -119,7 +122,8 @@ module.exports.deletePost = async (req, res) => {
     }
     //delete the image form cloudinary
     await cloudinary.uploader.destroy(post.imageId);
-    await Post.deleteOne({ _id: id });
+    await Post.deleteOne({ _id: postId });
+    await Comment.deleteMany({ post: postId });
     sendResponse(res, true, "Post Deleted Successfully!", null);
   } catch (error) {
     sendResponse(res, false, error?.message, null);
@@ -207,5 +211,25 @@ module.exports.disLikePostById = async (req, res) => {
     sendResponse(res, true, "Post Disliked Successfully!", updatedRecord);
   } catch (error) {
     sendResponse(res, false, error.message, null);
+  }
+};
+
+//post stats
+module.exports.postStatsById = async (req, res) => {
+  try {
+    const { postId } = req.params;
+    const post = await Post.findById(postId);
+    if (!post) {
+      return sendResponse(res, false, "No Post found", null);
+    }
+    const totalComments = await Comment.countDocuments({ post: postId });
+    const stats = {
+      likesCount: post.likesCount,
+      isLikedByMe: post.likes.includes(req.user.id),
+      commentsCount: totalComments,
+    };
+    sendResponse(res, true, "Stats fetched successfully", stats);
+  } catch (error) {
+    sendResponse(res, false, error?.message, null);
   }
 };

@@ -221,7 +221,21 @@
         - And also check  ,whether the user is  created that comment or not with the help of req.user.id and comment.user.id
         -Then delete the comment,it automatically delete from the database
 
-#### 14. getComments in that post by post Id
+#### 24. getComments in that post by post Id
 
         -  we need postId for getting the comments in that post
         - Then we get the comments with the help of postId and also populate user data
+
+#### 25.creating the post stats with the help of post id
+
+       - for this we need post id we get from req.params
+       - Find the post with the help of postid
+       - now create the stats,it includes likesCount,isLikedByMe,commentsCount
+       - likesCount get from post.likesCount and isLikedByMe get form post.likes.inlcudes(req.user.id)
+       - commentsCount get like countDocuments with the same postId
+
+##### 26.update userInfo
+
+       - first we need userId to find the user
+       - Then we update the user name using user.name=name that we get from the body
+       - Then save it again
