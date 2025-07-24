@@ -11,6 +11,10 @@ const {
   editPost,
   deletePost,
   getPostById,
+  getMyPosts,
+  getAllPosts,
+  likePostById,
+  disLikePostById,
 } = require("../controllers/post.controller");
 
 router.post("/upload/disk", upload.single("image"), uploadToDiskStorage);
@@ -31,4 +35,10 @@ router.post("/create", isAuthorised, createPost);
 router.post("/edit/:id", isAuthorised, editPost);
 router.post("/delete/post/:id", isAuthorised, deletePost);
 router.get("/view/:id", isAuthorised, getPostById);
+router.get("/myposts", isAuthorised, getMyPosts);
+router.get("/allposts", isAuthorised, getAllPosts);
+
+//like and dislike
+router.put("/like/:id", isAuthorised, likePostById);
+router.put("/dislike/:id", isAuthorised, disLikePostById);
 module.exports = router;

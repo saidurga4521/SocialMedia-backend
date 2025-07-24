@@ -26,7 +26,7 @@ const isAuthorised = async (req, res, next) => {
     next();
   } catch (error) {
     console.log("error", error.message);
-    res.status(500).send({
+    return res.status(500).send({
       data: error.message,
     });
   }

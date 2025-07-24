@@ -149,3 +149,63 @@ module.exports.getPostById = async (req, res) => {
     sendResponse(res, false, error?.message, null);
   }
 };
+module.exports.getMyPosts = async (req, res) => {
+  try {
+    const foundPosts = await Post.find({ user: req.user.id });
+    if (!foundPosts) {
+      return sendResponse(res, false, "No Post not found", null);
+    }
+    sendResponse(res, true, "posts fetched successfully", foundPosts);
+  } catch (error) {
+    return sendResponse(res, false, error.message, null);
+  }
+};
+
+module.exports.getAllPosts = async (req, res) => {
+  try {
+    const foundPosts = await Post.find();
+    if (!foundPosts) {
+      return sendResponse(res, false, "No Post found", null);
+    }
+    sendResponse(res, true, " all posts fetched successfully", foundPosts);
+  } catch (error) {
+    sendResponse(res, false, error.message, null);
+  }
+};
+
+module.exports.likePostById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const post = await Post.findById(id);
+    if (!post) {
+      return sendResponse(res, false, "No Post found", null);
+    }
+    if (post.likes.includes(req.user.id)) {
+      return sendResponse(res, false, "User already liked the post", null);
+    }
+    post.likes.push(req.user.id);
+    post.likesCount = post.likes.length;
+    const updatedRecord = await post.save();
+    sendResponse(res, true, "Post Liked Successfully!", updatedRecord);
+  } catch (error) {
+    sendResponse(res, false, error.message, null);
+  }
+};
+module.exports.disLikePostById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const post = await Post.findById(id);
+    if (!post) {
+      return sendResponse(res, false, "No Post found", null);
+    }
+    if (!post.likes.includes(req.user.id)) {
+      return sendResponse(res, false, "User not likes yet", null);
+    }
+    post.likes = post.likes.filter((p) => p.toString() !== req.user.id);
+    post.likesCount = post.likes.length;
+    const updatedRecord = await post.save();
+    sendResponse(res, true, "Post Disliked Successfully!", updatedRecord);
+  } catch (error) {
+    sendResponse(res, false, error.message, null);
+  }
+};

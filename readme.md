@@ -174,3 +174,54 @@
         - User Check: Ensures the logged-in user is the owner of the post.
 
         - Send Post: If everything is valid, it sends the post data with a success message.
+
+#### 17.getMyPosts:
+
+        - first find the posts with the help of user id
+        - if posts is not present,simple return sendResponse for "no posts found"
+
+#### 18.getAllPosts:
+
+        - find all the posts
+
+#### 19.likePostById:
+
+        - First we need post for like the post for that we need id.
+        - After finding the post ,check whether the post is exist or not
+        - Then check if the user is already liked or not ,suppose if user is already liked ,the we return the sendResponse with the message like "user is already liked"
+        - Otherwise add the req.user.id is push to the likes array and modify the likes count
+        - finall the save the post
+
+#### 20.disLikePostById:
+
+        - First we need post for like the post for that we need id.
+        - After finding the post ,check whether the post is exist or not
+        - Then check if the user is  liked yet or not ,suppose if user is not liked ,the we return the sendResponse with the message like "user is not liked yet"
+        - Then filter the posts with userid that is not equal to user in the post
+        - finall the save the post
+
+#### 21.Build the comment Schema
+
+        - comment Schema stores text, including user and post
+
+        - user field  referencing the User model.
+
+        - post field  referencing the Post model.
+
+#### 22.creating the comment
+
+        - for creating the comment,we need post ,first we need to find post with the help of postId
+        - now creating the new comment
+        - After saving the comment ,we want also user data for that we populate the user data also
+        - Then send the response
+
+#### 23.deleting the comment
+
+        - for deleting the comment,we need to commentId,The comment id you get from req.params
+        - And also check  ,whether the user is  created that comment or not with the help of req.user.id and comment.user.id
+        -Then delete the comment,it automatically delete from the database
+
+#### 14. getComments in that post by post Id
+
+        -  we need postId for getting the comments in that post
+        - Then we get the comments with the help of postId and also populate user data
