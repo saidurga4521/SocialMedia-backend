@@ -5,11 +5,12 @@ dotenv.config();
 
 module.exports.signup = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, role } = req.body;
     const newUser = await User.insertOne({
       name: name,
       email: email,
       password: password,
+      role: role,
     });
     //generate the token
     const token = jwt.sign(
@@ -17,6 +18,7 @@ module.exports.signup = async (req, res) => {
         email: newUser.email,
         name: newUser.name,
         id: newUser._id,
+        role: newUser.role,
       },
       process.env.JWT_SECRET_KEY,
       { expiresIn: "7d" }
@@ -57,6 +59,7 @@ module.exports.login = async (req, res) => {
         email: user.email,
         name: user.name,
         id: user._id,
+        role: user.role,
       },
       process.env.JWT_SECRET_KEY,
       { expiresIn: "7d" }

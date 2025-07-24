@@ -239,3 +239,15 @@
        - first we need userId to find the user
        - Then we update the user name using user.name=name that we get from the body
        - Then save it again
+
+#### 27.Role Based Access control
+
+       - Add new field in User model called role.
+       - Before creating the authorise middleware we also store role req.user
+       - Now build the authorize middleware the function accepts the roles and inside create another function check the current role is includes in that role or not
+       - In the user controller also we update role
+       - Then create the anylatics router
+
+#### 28.Analytics Controller
+
+       - It is ongoing.....
