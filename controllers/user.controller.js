@@ -122,3 +122,66 @@ module.exports.updateUserInfo = async (req, res) => {
     sendResponse(res, false, error.message, null, 500);
   }
 };
+
+module.exports.followUser = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const user = await User.findById(userId);
+    if (!user) {
+      return sendResponse(res, false, "user is not found", null, 404);
+    }
+    await User.findByIdAndUpdate(req.user.id, {
+      $addToSet: { followings: userId },
+    });
+    await User.findByIdAndUpdate(userId, {
+      $addToSet: { followers: req.user.id },
+    });
+    sendResponse(res, true, "user follow successfully", null);
+  } catch (error) {
+    sendResponse(res, false, error.message, null);
+  }
+};
+
+module.exports.unFollowUser = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const user = await User.findById(userId);
+    if (!user) {
+      return sendResponse(res, false, "user is not found", null, 404);
+    }
+    await User.findByIdAndUpdate(req.user.id, {
+      $pull: { followings: userId },
+    });
+    await User.findByIdAndUpdate(userId, {
+      $pull: { followers: req.user.id },
+    });
+    sendResponse(res, true, "user unfollow successfully", null);
+  } catch (error) {
+    sendResponse(res, false, error.message, null);
+  }
+};
+
+module.exports.getAllFollowers = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const user = await User.findById(userId).populate(
+      "followers",
+      "name email"
+    );
+    sendResponse(res, true, "get all followers successfully", user);
+  } catch (error) {
+    sendResponse(res, false, error.message, null, 500);
+  }
+};
+module.exports.getAllFollowings = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const user = await User.findById(userId).populate(
+      "followings",
+      "name email"
+    );
+    sendResponse(res, true, "get all followings successfully", user);
+  } catch (error) {
+    sendResponse(res, false, error.message, null, 500);
+  }
+};

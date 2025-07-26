@@ -21,6 +21,18 @@ const userSchema = new Schema(
       enum: ["personal", "creator"],
       default: "personal",
     },
+    followers: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+    followings: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
   },
   {
     timestamps: true,

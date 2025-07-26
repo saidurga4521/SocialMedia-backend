@@ -251,3 +251,24 @@
 #### 28.Analytics Controller
 
        - It is ongoing.....
+
+#### 29.SignUp and login with google
+
+       - Is's ongoing
+
+#### 30.follow and unfollow
+
+       - first we create two arrays in User model one is for followings and another one is for followers
+       - The follow controller logic is,
+           1. we need userId,this getting from req.params
+           2. we need our own userId,this getting from middleware
+           3. Find the user with the help of others userId,if the user is not found return the error simply
+           4.Incase if the user is found ,add others userId to the following array and add your userId to the others followers array woth the help of $addToSet and findByIdAndUpdate.
+        - The unfollow controller logic is ,
+            1.every thing same as folloe controller logic
+            2.The only thing here we do differntly was insted of $addToSet use $pull to remove userId's
+
+#### 31.getFollowers and getFollowings:
+
+        - for getting all followers we need to get all followers of that userId
+        - for getting all followings we need to get all followings of that userId
