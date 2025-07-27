@@ -54,12 +54,14 @@ module.exports.multipleUploadToCloudinary = async (req, res) => {
 // creating post
 module.exports.createPost = async (req, res) => {
   try {
-    const { text, image, imageId } = req.body;
+    const { text, image, imageId, isScheduled, scheduleTime } = req.body;
     const newPost = new Post({
       text,
       image,
       imageId,
       user: req.user.id,
+      isScheduled,
+      scheduleTime,
     });
     const savedPost = await newPost.save();
     sendResponse(res, true, "post create successfully", savedPost);
@@ -167,7 +169,16 @@ module.exports.getMyPosts = async (req, res) => {
 
 module.exports.getAllPosts = async (req, res) => {
   try {
-    const foundPosts = await Post.find();
+    //converting UTC TO IST
+    const UTC = new Date();
+    const offSet = 5.5 * 60 * 60 * 1000;
+    const nowIST = new Date(UTC.getTime() + offSet);
+    const foundPosts = await Post.find({
+      $or: [
+        { isScheduled: false },
+        { isScheduled: true, scheduleTime: { $lte: nowIST } },
+      ],
+    });
     if (!foundPosts) {
       return sendResponse(res, false, "No Post found", null);
     }

@@ -284,3 +284,9 @@
         - The first step is find the user with email
         - After finding the user ,simply update the isActive:true
 
+#### 34.Scheduling the Posts
+
+        - for scheduling the posts ,the first we need to add two variables isScheduled this is for whether the post is scheduled or not and second one is schedule time  in the post model.
+        - Next step is  we need to update
+          create post controller,that means we get schedule posts and non schedule posts also with the help of $or:[{isSchedule:false},{isSchedule:true,scheduleTime:{$lte:currenttime}}]
+        - Actually new Date() gives UTC format,we need to convert this in IST format with the offset 5:30 hr

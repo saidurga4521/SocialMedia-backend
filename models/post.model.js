@@ -24,6 +24,13 @@ const postSchema = new Schema(
       },
     ],
     likesCount: { type: Number, default: 0 },
+    isScheduled: {
+      type: Object,
+      default: false,
+    },
+    scheduleTime: {
+      type: Date,
+    },
   },
   { timestamps: true }
 );
