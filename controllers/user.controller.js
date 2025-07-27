@@ -6,7 +6,7 @@ dotenv.config();
 module.exports.signup = async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
-    const newUser = await User.insertOne({
+    const newUser = await User.create({
       name: name,
       email: email,
       password: password,
@@ -41,14 +41,20 @@ module.exports.signup = async (req, res) => {
 const bcrypt = require("bcrypt");
 const sendResponse = require("../utils/response");
 module.exports.login = async (req, res) => {
-  console.log("the req", req?.user);
   try {
     const { email, password } = req.body;
     console.log("the password", password, email);
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email, isActive: true });
+    console.log("the user", user);
+    if (!user) {
+      return sendResponse(res, false, "user is not found", null, 404);
+    }
+    console.log("the user", user);
+    console.log("the password", user.password);
+    console.log("my password", password);
     const isMatch = await bcrypt.compare(password, user.password ?? "");
     console.log("isMatch", isMatch);
-    if (!user || !isMatch) {
+    if (!isMatch) {
       return res.send({
         data: null,
         success: false,
@@ -94,7 +100,7 @@ module.exports.deleteUser = async (req, res) => {
 };
 module.exports.loggedInUserInfo = async (req, res) => {
   try {
-    const user = await User.findById(req?.user?.id);
+    const user = await User.findOne({ _id: req.user.id, isActive: true });
     res.status(200).send({
       data: {
         user,
@@ -112,7 +118,7 @@ module.exports.loggedInUserInfo = async (req, res) => {
 
 module.exports.getAllUsers = async (req, res) => {
   try {
-    const users = await User.find();
+    const users = await User.find({ isActive: true });
     sendResponse(res, true, "User details fetched successfully", users);
   } catch (error) {
     sendResponse(res, false, error.message, null);
@@ -123,7 +129,7 @@ module.exports.updateUserInfo = async (req, res) => {
   try {
     const userId = req.user.id;
     const { name } = req.body;
-    const user = await User.findById(userId);
+    const user = await User.findOne({ _id: userId, isActive: true });
     if (!user) {
       return sendResponse(res, false, "user is not found", null, 404);
     }
@@ -138,7 +144,7 @@ module.exports.updateUserInfo = async (req, res) => {
 module.exports.followUser = async (req, res) => {
   try {
     const { userId } = req.params;
-    const user = await User.findById(userId);
+    const user = await User.findOne({ _id: userId, isActive: true });
     if (!user) {
       return sendResponse(res, false, "user is not found", null, 404);
     }
@@ -157,7 +163,7 @@ module.exports.followUser = async (req, res) => {
 module.exports.unFollowUser = async (req, res) => {
   try {
     const { userId } = req.params;
-    const user = await User.findById(userId);
+    const user = await User.findOne({ _id: userId, isActive: true });
     if (!user) {
       return sendResponse(res, false, "user is not found", null, 404);
     }
@@ -176,7 +182,7 @@ module.exports.unFollowUser = async (req, res) => {
 module.exports.getAllFollowers = async (req, res) => {
   try {
     const userId = req.user.id;
-    const user = await User.findById(userId).populate(
+    const user = await User.findOne({ _id: userId, isActive: true }).populate(
       "followers",
       "name email"
     );
@@ -188,11 +194,42 @@ module.exports.getAllFollowers = async (req, res) => {
 module.exports.getAllFollowings = async (req, res) => {
   try {
     const userId = req.user.id;
-    const user = await User.findById(userId).populate(
+    const user = await User.findOne({ _id: userId, isActive: true }).populate(
       "followings",
       "name email"
     );
     sendResponse(res, true, "get all followings successfully", user);
+  } catch (error) {
+    sendResponse(res, false, error.message, null, 500);
+  }
+};
+
+//soft delete
+const mongoose = require("mongoose");
+module.exports.deleteuser = async (req, res) => {
+  try {
+    // const userId = new mongoose.Types.ObjectId(req?.user?.id);
+    const userId = req?.user?.id;
+    const user = await User.findOne({ _id: userId });
+    console.log("the user", user);
+    user.isActive = false;
+    await user.save();
+    sendResponse(res, true, "user deleted successfully", null);
+  } catch (error) {
+    sendResponse(res, false, error.message, null, 500);
+  }
+};
+
+module.exports.resetAccount = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) {
+      return sendResponse(res, false, "email is not valid", null, 404);
+    }
+    await User.updateOne({ email }, { isActive: true });
+    const updatedUser = await User.findOne({ email });
+    sendResponse(res, true, "user details reset successfully", updatedUser);
   } catch (error) {
     sendResponse(res, false, error.message, null, 500);
   }

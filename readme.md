@@ -272,3 +272,15 @@
 
         - for getting all followers we need to get all followers of that userId
         - for getting all followings we need to get all followings of that userId
+
+#### 32.soft delete
+
+        - The first step is add the variable isActive in the user Model because this tells whether the user is deleted or not
+        - Second one is create the controller to update isActive false
+        - After the whereever we use find the user with id,you can also add this isActive=true it means the user is not deleted
+
+#### 33.Reset the Account
+
+        - The first step is find the user with email
+        - After finding the user ,simply update the isActive:true
+

@@ -11,6 +11,8 @@ const {
   unFollowUser,
   getAllFollowers,
   getAllFollowings,
+  deleteuser,
+  resetAccount,
 } = require("../controllers/user.controller");
 //middleware
 const isAuthorised = require("../middlewares/isAuthorised");
@@ -26,4 +28,9 @@ router.put("/user/follow/:userId", isAuthorised, followUser);
 router.put("/user/unfollow/:userId", isAuthorised, unFollowUser);
 router.get("/user/followers", isAuthorised, getAllFollowers);
 router.get("/user/followings", isAuthorised, getAllFollowings);
+
+// soft delete
+router.put("/delete", isAuthorised, deleteuser);
+// user reset
+router.put("/reset", resetAccount);
 module.exports = router;
