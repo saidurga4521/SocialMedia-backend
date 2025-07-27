@@ -8,6 +8,6 @@ const {
 } = require("../controllers/comment.controller");
 
 router.post("/create/:postId", isAuthorised, createComment);
-router.delete("/delete/:id", isAuthorised, deleteComment);
+router.delete("/delete/:commentId", isAuthorised, deleteComment);
 router.get("/:postId", isAuthorised, getCommentsById);
 module.exports = router;

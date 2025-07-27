@@ -71,11 +71,11 @@ module.exports.createPost = async (req, res) => {
 module.exports.editPost = async (req, res) => {
   try {
     const { text, image, imageId } = req.body;
-    const { id } = req.params;
+    const { postId } = req.params;
     if (!text) {
       return sendResponse(res, false, "caption is required", null);
     }
-    const foundPost = await Post.findById(id);
+    const foundPost = await Post.findById(postId);
     if (!foundPost) {
       return sendResponse(res, false, "Post not found", null);
     }
@@ -134,7 +134,7 @@ module.exports.getPostById = async (req, res) => {
   try {
     const { id } = req.params;
     if (!id) {
-      return sendResponse(res, false, "Post Id is a required", null);
+      return sendResponse(res, false, "Post Id is  required", null);
     }
     const post = await Post.findById(id);
     if (!post) {

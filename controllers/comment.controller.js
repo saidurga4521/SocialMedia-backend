@@ -23,7 +23,7 @@ module.exports.createComment = async (req, res) => {
   }
 };
 
-module.exports.deleteComment = async (res, req) => {
+module.exports.deleteComment = async (req, res) => {
   try {
     const { commentId } = req.params;
 

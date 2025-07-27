@@ -12,8 +12,7 @@ const isAuthorised = async (req, res, next) => {
     }
     const token = bearerToken.split(" ")[1];
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
-    console.log("the decoded token", decodedToken);
-
+    console.log(decodedToken);
     const user = await User.findById(decodedToken?.id);
     if (!user) {
       return res.status(500).send({

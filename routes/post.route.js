@@ -33,8 +33,8 @@ router.post(
   multipleUploadToCloudinary
 );
 router.post("/create", isAuthorised, createPost);
-router.post("/edit/:id", isAuthorised, editPost);
-router.post("/delete/post/:postId", isAuthorised, deletePost);
+router.put("/edit/:postId", isAuthorised, editPost);
+router.delete("/delete/post/:postId", isAuthorised, deletePost);
 router.get("/view/:id", isAuthorised, getPostById);
 router.get("/myposts", isAuthorised, getMyPosts);
 router.get("/allposts", isAuthorised, getAllPosts);

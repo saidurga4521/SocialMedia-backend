@@ -44,6 +44,7 @@ module.exports.login = async (req, res) => {
   console.log("the req", req?.user);
   try {
     const { email, password } = req.body;
+    console.log("the password", password, email);
     const user = await User.findOne({ email });
     const isMatch = await bcrypt.compare(password, user.password ?? "");
     console.log("isMatch", isMatch);
@@ -79,7 +80,18 @@ module.exports.login = async (req, res) => {
     });
   }
 };
-
+module.exports.deleteUser = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const user = await User.findByIdAndDelete(userId);
+    if (!user) {
+      return sendResponse(res, false, "user is not found", null, 404);
+    }
+    sendResponse(res, true, "user is deleted successfully", null);
+  } catch (error) {
+    sendResponse(res, false, error.message, null, 500);
+  }
+};
 module.exports.loggedInUserInfo = async (req, res) => {
   try {
     const user = await User.findById(req?.user?.id);
