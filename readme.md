@@ -290,3 +290,23 @@
         - Next step is  we need to update
           create post controller,that means we get schedule posts and non schedule posts also with the help of $or:[{isSchedule:false},{isSchedule:true,scheduleTime:{$lte:currenttime}}]
         - Actually new Date() gives UTC format,we need to convert this in IST format with the offset 5:30 hr
+
+#### 35.forgot password
+
+        - The first thing is create the forgot-password.model.js,In that we required userId,token for which user has opend that link,expiredAt,used for the user is used the reset link or not.
+        - Here we not only use controller we use servic layer also.controller is used for validate the data and service layer is used for to write the entire core logic that interact with database
+        - first we need controller that access email from the req.body and call the function in the service layer
+        - create the forgotPasswordService in the service layer
+        - After that find the user with the help of email
+        - create the token using crypto to check whether the user you or not
+        - create expiredAt
+        - add all these values to the forgotPassword model
+        - next one is creating the reset link for that we need client url you need to store in .env file
+        - After this,send the reset link to email
+        - after that add router
+
+#### 36.reset password
+
+        - In this functionality first we get token and new password form request.body
+        - After that,check whether this token is there in the resetPassword model or not,if its not there ,send the error like invalid
+        - Otherwise first change the resetToken.used=true,then update the password in the user model

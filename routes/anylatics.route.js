@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { getPostByDate } = require("../controllers/anylatics.cntroller");
+const { getPostByDate } = require("../controllers/anylatics.controller");
 //middlewares
 const isAuthorised = require("../middlewares/isAuthorised");
 const authorize = require("../middlewares/authorize");

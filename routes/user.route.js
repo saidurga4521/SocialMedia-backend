@@ -14,6 +14,10 @@ const {
   deleteuser,
   resetAccount,
 } = require("../controllers/user.controller");
+const {
+  forgotPassword,
+  resetpassword,
+} = require("../controllers/resetPassword.controller");
 //middleware
 const isAuthorised = require("../middlewares/isAuthorised");
 router.post("/signup", signup);
@@ -33,4 +37,8 @@ router.get("/user/followings", isAuthorised, getAllFollowings);
 router.put("/delete", isAuthorised, deleteuser);
 // user reset
 router.put("/reset", resetAccount);
+
+//forgot password
+router.post("/forgot-password", forgotPassword);
+router.post("/reset-password", resetpassword);
 module.exports = router;
