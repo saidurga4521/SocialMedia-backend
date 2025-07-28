@@ -5,8 +5,8 @@ const User = require("../models/user.model");
 module.exports.forgotPassword = async (req, res) => {
   try {
     const { email } = req.body;
-    const message = await forgotPasswordService(email);
-    sendResponse(res, true, message, null);
+    const { message, resetLink, token } = await forgotPasswordService(email);
+    sendResponse(res, true, message, { resetLink, token });
   } catch (error) {
     sendResponse(res, false, error.message, 500);
   }

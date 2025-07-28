@@ -310,3 +310,8 @@
         - In this functionality first we get token and new password form request.body
         - After that,check whether this token is there in the resetPassword model or not,if its not there ,send the error like invalid
         - Otherwise first change the resetToken.used=true,then update the password in the user model
+
+#### 37.send Mail functionality using node mailer
+
+        - first we create the file called sendMail in the utilities
+        - create the transporter
