@@ -86,6 +86,17 @@ module.exports.login = async (req, res) => {
     });
   }
 };
+module.exports.logout = async (req, res) => {
+  const token = req.body;
+  try {
+    if (!token) {
+      return sendResponse(res, false, "please login", null, 404);
+    }
+    sendResponse(res, true, "user logout successfully", null);
+  } catch (error) {
+    sendResponse(res, false, error.message, null, 500);
+  }
+};
 module.exports.deleteUser = async (req, res) => {
   try {
     const userId = req.user.id;

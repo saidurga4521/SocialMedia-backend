@@ -3,6 +3,7 @@ const router = express.Router();
 const {
   signup,
   login,
+  logout,
   deleteUser,
   loggedInUserInfo,
   getAllUsers,
@@ -22,7 +23,8 @@ const {
 const isAuthorised = require("../middlewares/isAuthorised");
 router.post("/signup", signup);
 router.post("/login", login);
-router.delete("/logout", isAuthorised, deleteUser);
+router.post("/logout", logout);
+router.delete("/delete", isAuthorised, deleteUser);
 router.get("/user/me", isAuthorised, loggedInUserInfo);
 router.get("/allusers", isAuthorised, getAllUsers);
 router.put("/user/profile", isAuthorised, updateUserInfo);
