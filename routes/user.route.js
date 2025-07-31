@@ -23,7 +23,7 @@ const {
 const isAuthorised = require("../middlewares/isAuthorised");
 router.post("/signup", signup);
 router.post("/login", login);
-router.post("/logout", logout);
+router.delete("/logout", logout);
 router.delete("/delete", isAuthorised, deleteUser);
 router.get("/user/me", isAuthorised, loggedInUserInfo);
 router.get("/allusers", isAuthorised, getAllUsers);
