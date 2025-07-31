@@ -87,7 +87,7 @@ module.exports.login = async (req, res) => {
   }
 };
 module.exports.logout = async (req, res) => {
-  const token = req.body;
+  const { token } = req.body;
   try {
     if (!token) {
       return sendResponse(res, false, "please login", null, 404);
