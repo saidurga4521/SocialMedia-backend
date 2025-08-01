@@ -50,9 +50,7 @@ module.exports.login = async (req, res) => {
     if (!user) {
       return sendResponse(res, false, "user is not found", null, 404);
     }
-    console.log("the user", user);
-    console.log("the password", user.password);
-    console.log("my password", password);
+
     const isMatch = await bcrypt.compare(password, user.password ?? "");
     console.log("isMatch", isMatch);
     if (!isMatch) {
