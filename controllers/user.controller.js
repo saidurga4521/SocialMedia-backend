@@ -56,7 +56,7 @@ module.exports.login = async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password ?? "");
     console.log("isMatch", isMatch);
     if (!isMatch) {
-      return res.send({
+      return res.status(404).send({
         data: null,
         success: false,
         message: "Email/password do not match ",
