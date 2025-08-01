@@ -6,12 +6,13 @@ dotenv.config();
 module.exports.signup = async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
-    const newUser = await User.create({
+    const user = new User({
       name: name,
       email: email,
       password: password,
       role: role,
     });
+    const newUser = await user.save();
     //generate the token
     const token = jwt.sign(
       {

@@ -114,6 +114,7 @@ module.exports.deletePost = async (req, res) => {
     if (!post) {
       return sendResponse(res, false, "No Post not found", null);
     }
+
     if (post.user.toString() !== req.user.id) {
       return sendResponse(
         res,
@@ -123,12 +124,14 @@ module.exports.deletePost = async (req, res) => {
       );
     }
     //delete the image form cloudinary
+    console.log("the post", post);
+    console.log("the imageId", post.imageId);
     await cloudinary.uploader.destroy(post.imageId);
     await Post.deleteOne({ _id: postId });
     await Comment.deleteMany({ post: postId });
     sendResponse(res, true, "Post Deleted Successfully!", null);
   } catch (error) {
-    sendResponse(res, false, error?.message, null);
+    sendResponse(res, false, error?.message, null, 500);
   }
 };
 

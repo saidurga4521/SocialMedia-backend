@@ -11,6 +11,7 @@ const isAuthorised = async (req, res, next) => {
       });
     }
     const token = bearerToken.split(" ")[1];
+    console.log("the token", token);
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
     console.log(decodedToken);
     const user = await User.findOne({ _id: decodedToken?.id, isActive: true });
