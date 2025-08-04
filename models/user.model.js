@@ -46,6 +46,7 @@ const userSchema = new Schema(
 //hashing the password
 userSchema.pre("save", async function (next) {
   const salt = await bcrypt.genSalt(15);
+  console.log("password", this.password);
   const hashedPasword = await bcrypt.hash(this.password, salt);
   this.password = hashedPasword;
   next();
