@@ -155,6 +155,7 @@ module.exports.followUser = async (req, res) => {
   try {
     const { userId } = req.params;
     const user = await User.findOne({ _id: userId, isActive: true });
+    console.log("the user", user);
     if (!user) {
       return sendResponse(res, false, "user is not found", null, 404);
     }
