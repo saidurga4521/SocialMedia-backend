@@ -254,7 +254,21 @@
 
 #### 29.SignUp and login with google
 
-       - Is's ongoing
+       - passport → Helps check who the user is.
+
+       - GoogleStrategy → Talks to Google to verify users.
+
+       - clientID & clientSecret → Like your school’s ID and secret password given by Google.
+
+       - callbackURL → Google sends you back here after checking.
+
+       - serializeUser → Saves the user's info.
+
+       - deserializeUser → Gets the user info when needed again.
+
+       - /auth/google → Start login with Google.
+
+       - /auth/google/callback → After Google approves, come back here.
 
 #### 30.follow and unfollow
 

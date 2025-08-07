@@ -1,6 +1,7 @@
 const express = require("express");
 require("./config/mongoose");
 const cors = require("cors");
+const passport = require("passport");
 const app = express();
 app.use(
   cors({
@@ -19,6 +20,7 @@ app.use(
 
 app.use(express.json());
 app.use("/api", require("./routes"));
+app.use(passport.initialize());
 
 app.get("/", (req, res) => {
   res.status(200).send({

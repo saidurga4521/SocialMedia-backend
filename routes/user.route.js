@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const passport = require("passport");
+require("../config/passport");
 const {
   signup,
   login,
@@ -43,4 +45,19 @@ router.put("/reset", resetAccount);
 //forgot password
 router.post("/forgot-password", forgotPassword);
 router.post("/reset-password", resetpassword);
+
+//oAuth routes
+router.get(
+  "auth/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
+router.get(
+  "auth/google/callback",
+  passport.authenticate("google", { session: false }, (err, user, info) => {
+    console.log(req.user);
+    res.send({
+      user: req.user,
+    });
+  })
+);
 module.exports = router;
