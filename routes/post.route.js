@@ -16,6 +16,7 @@ const {
   likePostById,
   disLikePostById,
   postStatsById,
+  getPostsAdditional,
 } = require("../controllers/post.controller");
 
 router.post("/upload/disk", upload.single("image"), uploadToDiskStorage);
@@ -45,4 +46,5 @@ router.put("/dislike/:id", isAuthorised, disLikePostById);
 
 //stats
 router.get("/stats/:postId", isAuthorised, postStatsById);
+router.get("/search-pagination-sorting", isAuthorised, getPostsAdditional);
 module.exports = router;

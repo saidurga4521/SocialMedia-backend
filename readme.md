@@ -329,3 +329,12 @@
 
         - first we create the file called sendMail in the utilities
         - create the transporter
+
+#### 38.Searching-sorting-pagenation
+
+        - first,to acheive all these functionalities we get query params "searchTerm","sortBy","page" and "limit"
+        - use regex to acheive search functionality
+        - for sorting ,we can sort the posts based on three options ,"latest","oldest","popular"
+        - first of all ,we use the field "createdAt" to sort the posts ,for "latest" posts we use desc order and for "oldest posts" we asc order and for popular posts we can sort it based on likes count.
+        - for pagination ,we use "limit" and "page" ,The formula for skip is (page-1)*limit
+        - we simple skip  the (page-1)*limit posts and we limit the "limit" posts

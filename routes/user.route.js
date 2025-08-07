@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
+const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
+dotenv.config();
 require("../config/passport");
 const {
   signup,
@@ -51,14 +54,19 @@ router.get(
   "/google",
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
-router.get(
-  "/google/callback",
-  passport.authenticate("google", { session: false }),
-  (req, res) => {
-    console.log("User:", req.user);
-    res.send({
-      user: req.user,
-    });
-  }
-);
+router.get("/google/callback", passport.authenticate("google"), (req, res) => {
+  console.log(req.user);
+  const token = jwt.sign(
+    {
+      email: req.user.email,
+      name: req.user.name,
+      id: req.user._id,
+      role: req.user.role,
+    },
+    process.env.JWT_SECRET_KEY,
+    { expiresIn: "7d" }
+  );
+  //
+  res.redirect(`http://localhost:5173/oauth-success?token=${token}`);
+});
 module.exports = router;

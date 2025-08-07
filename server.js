@@ -2,6 +2,9 @@ const express = require("express");
 require("./config/mongoose");
 const cors = require("cors");
 const passport = require("passport");
+const session = require("express-session");
+const dotenv = require("dotenv");
+dotenv.config();
 const app = express();
 app.use(
   cors({
@@ -17,10 +20,21 @@ app.use(
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
-
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: false,
+      maxAge: 1000 * 60 * 60 * 24, // 1day
+    },
+  })
+);
 app.use(express.json());
 app.use("/api", require("./routes"));
 app.use(passport.initialize());
+app.use(passport.session());
 
 app.get("/", (req, res) => {
   res.status(200).send({

@@ -6,6 +6,7 @@ const sendResponse = require("../utils/response");
 const Post = require("../models/post.model");
 //for stats
 const Comment = require("../models/comment.model");
+const { options } = require("../routes");
 module.exports.uploadToDiskStorage = async (req, res) => {
   res.status(200).send({
     file: req.file,
@@ -245,5 +246,30 @@ module.exports.postStatsById = async (req, res) => {
     sendResponse(res, true, "Stats fetched successfully", stats);
   } catch (error) {
     sendResponse(res, false, error?.message, null);
+  }
+};
+
+//searching and sorting and pagination
+module.exports.getPostsAdditional = async (req, res) => {
+  try {
+    const { searchTerm, sortBy, page, limit } = req.query;
+    //1.searching
+    const query = { text: { $regex: searchTerm, $options: "i" } };
+    //2.sorting
+    const sortingOptions = {
+      latest: { createdAt: -1 },
+      oldest: { createdAt: 1 },
+      popular: { likesCount: -1 },
+    };
+    const posts = await Post.find(query)
+      .sort(sortingOptions[sortBy])
+      .skip((page - 1) * limit)
+      .limit(limit);
+    if (!posts) {
+      return sendResponse(res, false, "No Posts found", null);
+    }
+    sendResponse(res, true, "posts fetched successfully", posts);
+  } catch (error) {
+    return sendResponse(res, false, error.message, null, 500);
   }
 };
