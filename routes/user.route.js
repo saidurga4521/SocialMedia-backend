@@ -53,11 +53,12 @@ router.get(
 );
 router.get(
   "/auth/google/callback",
-  passport.authenticate("google", { session: false }, (err, user, info) => {
-    console.log(req.user);
+  passport.authenticate("google", { session: false }),
+  (req, res) => {
+    console.log("User:", req.user);
     res.send({
       user: req.user,
     });
-  })
+  }
 );
 module.exports = router;
