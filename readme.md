@@ -332,9 +332,18 @@
 
 #### 38.Searching-sorting-pagenation
 
-        - first,to acheive all these functionalities we get query params "searchTerm","sortBy","page" and "limit"
-        - use regex to acheive search functionality
-        - for sorting ,we can sort the posts based on three options ,"latest","oldest","popular"
-        - first of all ,we use the field "createdAt" to sort the posts ,for "latest" posts we use desc order and for "oldest posts" we asc order and for popular posts we can sort it based on likes count.
-        - for pagination ,we use "limit" and "page" ,The formula for skip is (page-1)*limit
-        - we simple skip  the (page-1)*limit posts and we limit the "limit" posts
+        Search Functionality:
+         - We use a regular expression (regex) to perform a case-insensitive search on the post content or title based on the searchTerm.
+
+        Sorting Functionality:
+        - We allow sorting based on three options: "latest", "oldest", and "popular":
+
+        - "latest": Sort posts by createdAt in descending order.
+
+        - "oldest": Sort posts by createdAt in ascending order
+        - "popular": Sort posts based on the number of likes in descending order.
+
+        Pagination Functionality:
+        - We use the page and limit query parameters to paginate the results. The formula for calculating the number of documents to skip is:
+        - skip = (page - 1) * limit
+        - This means we skip (page - 1) * limit posts and then return only limit number of posts.
