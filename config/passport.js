@@ -7,14 +7,16 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const StrategyOptions = {
-  clientId: process.env.GOOGLE_CLIENT_ID,
-  clientSecretKey: process.env.GOOGLE_SECRET_KEY,
-  clientURL: process.env.GOOGLE_CALLBACK_URL,
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_SECRET_KEY,
+  callbackURL: process.env.GOOGLE_CALLBACK_URL,
 };
 
 const verifyCallBack = (accessToken, refreshToken, profile, done) => {
   try {
+    console.log(profile);
+  } catch (error) {
     console.log(error);
-  } catch (error) {}
+  }
 };
 passport.use(new GoogleStrategy(StrategyOptions, verifyCallBack));
