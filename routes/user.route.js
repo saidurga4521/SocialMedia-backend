@@ -48,11 +48,11 @@ router.post("/reset-password", resetpassword);
 
 //oAuth routes
 router.get(
-  "/auth/google",
+  "/google",
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
 router.get(
-  "/auth/google/callback",
+  "/google/callback",
   passport.authenticate("google", { session: false }),
   (req, res) => {
     console.log("User:", req.user);
