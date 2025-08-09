@@ -1,0 +1,164 @@
+[
+  {
+    "_id": "6885fcacbf4655046f52cb22",
+    "name": "saikamireddi",
+    "email": "durga3creator@gmail.com",
+    "password": "$2b$15$WFoCu2zJx6vOZOzVNB/JQOc9xQ..CBc1ZRBO0IgoqR88Lyj4Psrl.",
+    "role": "creator",
+    "followers": [],
+    "followings": [],
+    "isActive": true,
+    "createdAt": "2025-07-27T10:17:16.227Z",
+    "updatedAt": "2025-08-05T09:17:38.583Z",
+    "__v": 0
+  },
+  {
+    "_id": "68860d22b4187fbc529fb538",
+    "name": "saikamireddi",
+    "email": "durga5creator@gmail.com",
+    "password": "$2b$15$/0hGz.gvhDPD9bgsEQYyrO5z2RbnXfOgoCot9TawoHefM.X.B06vS",
+    "role": "creator",
+    "followers": [
+      "688c64387bbd54181e5f58ef"
+    ],
+    "followings": [],
+    "isActive": true,
+    "createdAt": "2025-07-27T11:27:30.091Z",
+    "updatedAt": "2025-08-05T04:06:05.983Z",
+    "__v": 0
+  },
+  {
+    "_id": "688b0d825b1ef3fcb9cc347a",
+    "name": "saikamireddy",
+    "email": "prasad4521@gmail.com",
+    "password": "$2b$15$sdUhmcX94zzOwzLPSCyiVO8rm0XyfnjlSFuNGHudO249pEUSk1qtC",
+    "role": "personal",
+    "followers": [],
+    "followings": [],
+    "isActive": true,
+    "createdAt": "2025-07-31T06:30:26.648Z",
+    "updatedAt": "2025-08-05T10:13:39.390Z",
+    "__v": 0
+  },
+  {
+    "_id": "688b365c1741ef9da7ebe89b",
+    "name": "prasad kamireddy",
+    "email": "prasad4@gmail.com",
+    "password": "$2b$15$u3UxX0qf5hpoS.z3nAZqBOdZ2B5lNq.Lvv4uJIC9vvWIPwUfoCswK",
+    "role": "personal",
+    "followers": [
+      "688c64387bbd54181e5f58ef"
+    ],
+    "followings": [],
+    "isActive": true,
+    "createdAt": "2025-07-31T09:24:44.029Z",
+    "updatedAt": "2025-08-05T10:13:04.866Z",
+    "__v": 0
+  },
+  {
+    "_id": "688b6ab50b00c8941bb7d0a4",
+    "name": "sai kamireddy",
+    "email": "durga3@gmail.com",
+    "password": "$2b$15$vAMb.Fv.ZJhA3c9Gw25bEetQfaphW.M4tzXjDcN9Qebob2xFSIJNG",
+    "role": "personal",
+    "followers": [],
+    "followings": [],
+    "isActive": true,
+    "createdAt": "2025-07-31T13:08:05.397Z",
+    "updatedAt": "2025-08-04T14:31:54.185Z",
+    "__v": 0
+  },
+  {
+    "_id": "688c593d5afba96f4f4f6c76",
+    "name": "prasad",
+    "email": "prasad5@gmail.com",
+    "password": "$2b$15$yghUT8uzM25KXFrh5ZWU0.7Aq1WIl0kZNkYmF56n1d5pU5a3oLOEm",
+    "role": "creator",
+    "followers": [
+      "688c64387bbd54181e5f58ef"
+    ],
+    "followings": [],
+    "isActive": true,
+    "createdAt": "2025-08-01T06:05:49.118Z",
+    "updatedAt": "2025-08-04T08:11:39.209Z",
+    "__v": 0
+  },
+  {
+    "_id": "688c63e53c1641e5eae180f1",
+    "name": "kamireddy",
+    "email": "prasad6@gmail.com",
+    "password": "$2b$15$aYRc9J2kPkThqBVLQW4HcuxFtYrpxjCi25r3Fp7he0pXccmx.IwV.",
+    "role": "creator",
+    "followers": [
+      "688c64387bbd54181e5f58ef"
+    ],
+    "followings": [],
+    "isActive": true,
+    "createdAt": "2025-08-01T06:51:17.322Z",
+    "updatedAt": "2025-08-04T08:37:06.875Z",
+    "__v": 0
+  },
+  {
+    "_id": "688c64387bbd54181e5f58ef",
+    "name": "Prasad kamireddi",
+    "email": "prasad7@gmail.com",
+    "password": "$2b$15$uFBKJMysq7UR83xPZOJjuu3OJhVO11dZg0r4O9U1x6I5zPmNqztfK",
+    "role": "creator",
+    "followers": [
+      "688c64387bbd54181e5f58ef"
+    ],
+    "followings": [
+      "688c593d5afba96f4f4f6c76",
+      "688c63e53c1641e5eae180f1",
+      "688c64387bbd54181e5f58ef",
+      "688db632e4c8625bd43be6b9",
+      "68860d22b4187fbc529fb538",
+      "688b365c1741ef9da7ebe89b"
+    ],
+    "isActive": true,
+    "createdAt": "2025-08-01T06:52:40.944Z",
+    "updatedAt": "2025-08-05T10:13:39.161Z",
+    "__v": 0
+  },
+  {
+    "_id": "688db632e4c8625bd43be6b9",
+    "name": "kamireddy",
+    "email": "prasad78@gmail.com",
+    "password": "$2b$15$X2tYt6I9Wmfhilav6I/LBe66wnlAZnUcTBpy5pLuLjz35MzszIZge",
+    "role": "personal",
+    "followers": [
+      "688c64387bbd54181e5f58ef"
+    ],
+    "followings": [],
+    "isActive": true,
+    "createdAt": "2025-08-02T06:54:42.554Z",
+    "updatedAt": "2025-08-04T09:13:06.784Z",
+    "__v": 0
+  },
+  {
+    "_id": "688db709e4c8625bd43be6bd",
+    "name": "kamireddy",
+    "email": "prasad9@gmail.com",
+    "password": "$2b$15$mWpYF.8mTzGwpiQhg/QQpuyYYp497W4VeCbPg24Evz3wSEDzBiORy",
+    "role": "creator",
+    "followers": [],
+    "followings": [],
+    "isActive": true,
+    "createdAt": "2025-08-02T06:58:18.001Z",
+    "updatedAt": "2025-08-04T09:28:43.985Z",
+    "__v": 0
+  },
+  {
+    "_id": "6894697a5e7882c5eb7e6809",
+    "name": "sai kamireddi",
+    "email": "saikamireddi3@gmail.com",
+    "password": "$2b$15$hvgtDu8Sl6blCW5mj99rHuV.eTu1wFGXdIoptcSloCEEv70A2j8Di",
+    "role": "personal",
+    "followers": [],
+    "followings": [],
+    "isActive": true,
+    "createdAt": "2025-08-07T08:53:14.281Z",
+    "updatedAt": "2025-08-07T08:53:14.281Z",
+    "__v": 0
+  }
+]

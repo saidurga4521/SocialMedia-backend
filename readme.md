@@ -347,3 +347,15 @@
         - We use the page and limit query parameters to paginate the results. The formula for calculating the number of documents to skip is:
         - skip = (page - 1) * limit
         - This means we skip (page - 1) * limit posts and then return only limit number of posts.
+
+#### 39.getSystem health using os module
+
+       - we use os module to get system health
+       - create admin controller and admin route for this
+
+#### 40.export users
+
+       - first we get the data from our database
+       - Then we store that in our file
+       - file is automatically created by fs module
+
