@@ -358,4 +358,9 @@
        - first we get the data from our database
        - Then we store that in our file
        - file is automatically created by fs module
+       - optional:you can also pass this data to the cloudinary and attached that link with frontend
 
+#### 41.create the event emitters for login
+
+       - first create two folders "events","listeners" for register the events and triggers the events repectively
+       -whenever you login ,the event will register it fires the event ,here the event the send the congratulations mail to the user

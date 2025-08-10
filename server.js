@@ -1,5 +1,6 @@
 const express = require("express");
 require("./config/mongoose");
+require("./listeners/user-listener");
 const cors = require("cors");
 const passport = require("passport");
 const session = require("express-session");

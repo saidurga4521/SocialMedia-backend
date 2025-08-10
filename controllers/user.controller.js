@@ -1,6 +1,8 @@
 const User = require("../models/user.model");
 const dotenv = require("dotenv");
 const jwt = require("jsonwebtoken");
+//event emitter
+const userEmitter = require("../events/user-emitter");
 dotenv.config();
 
 module.exports.signup = async (req, res) => {
@@ -24,6 +26,7 @@ module.exports.signup = async (req, res) => {
       process.env.JWT_SECRET_KEY,
       { expiresIn: "7d" }
     );
+
     res.send({
       data: {
         user: newUser,
@@ -70,6 +73,7 @@ module.exports.login = async (req, res) => {
       process.env.JWT_SECRET_KEY,
       { expiresIn: "7d" }
     );
+    userEmitter.emit("user:login", user);
     res.send({
       data: {
         user,
