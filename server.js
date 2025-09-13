@@ -7,19 +7,32 @@ const session = require("express-session");
 const dotenv = require("dotenv");
 dotenv.config();
 const app = express();
+// app.use(
+//   cors({
+//     // origin: function (origin, callback) {
+//     //   const allowed = ["http://localhost:5173"];
+//     //   if (!origin || allowed.includes(origin)) {
+//     //     callback(null, true);
+//     //   } else {
+//     //     callback(new Error("Not allowed by CORS"));
+//     //   }
+//     // },
+//     // credentials: true,
+//     // methods: ["GET", "POST", "PUT", "DELETE"],
+//     origin: "*",
+//   })
+// );
 app.use(
   cors({
-    // origin: function (origin, callback) {
-    //   const allowed = ["http://localhost:5173"];
-    //   if (!origin || allowed.includes(origin)) {
-    //     callback(null, true);
-    //   } else {
-    //     callback(new Error("Not allowed by CORS"));
-    //   }
-    // },
-    // credentials: true,
-    // methods: ["GET", "POST", "PUT", "DELETE"],
-    origin: "*",
+    origin: (origin, cb) => {
+      cb(null, origin);
+      // if (!origin || allowedOrigins.includes(origin)) {
+      //   cb(null, true);
+      // } else {
+      //   cb(new Error("NOT allowed by CORS"));
+      // }
+    },
+    credentials: true,
   })
 );
 app.use(
